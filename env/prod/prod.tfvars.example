@@ -1,0 +1,8 @@
+project_id  = "mon-projet-gcp-id"
+region      = "europe-west1"
+environment = "dev"
+app_name    = "flaskdemo"
+labels = {
+  owner       = "prenom.nom@ecole.fr"
+  cost_center = "CC123"
+}
