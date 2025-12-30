@@ -1,6 +1,6 @@
-output "static_bucket" {
-  value       = module.app_static.static_bucket_name
-  description = "Static bucket name"
+output "static_buckets" {
+  value       = module.app_static.bucket_names
+  description = "Static bucket names by key"
 }
 
 output "logs_bucket" {

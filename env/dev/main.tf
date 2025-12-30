@@ -20,14 +20,17 @@ provider "google" {
 }
 
 module "network" {
-  source       = "../../modules/network"
-  project_id   = var.project_id
-  environment  = var.environment
-  network_name = "${var.app_name}-vpc"
-  region       = var.region
-  cidr_block   = "10.20.0.0/16"
-  labels       = var.labels
+    source       = "../../modules/network"
+    project_id   = var.project_id
+    environment  = var.environment
+    network_name = "${var.app_name}-vpc"
+    region       = var.region
+    cidr_block   = "10.20.0.0/16"
+    labels       = var.labels
+
+    ingress_rules = var.ingress_rules 
 }
+
 
 module "app_static" {
   source      = "../../modules/app_static"
@@ -36,7 +39,14 @@ module "app_static" {
   environment = var.environment
   app_name    = var.app_name
   labels      = var.labels
+
+  buckets = {
+    assets  = {}
+    images  = {}
+    backups = { storage_class = "NEARLINE", versioning = true }
+  }
 }
+
 
 module "logging" {
   source      = "../../modules/logging"
@@ -46,4 +56,3 @@ module "logging" {
   app_name    = var.app_name
   labels      = var.labels
 }
-
